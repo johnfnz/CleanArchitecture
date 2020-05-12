@@ -1,8 +1,10 @@
-﻿using CleanArchitecture.Application.TodoLists.Commands;
+﻿using CleanArchitecture.Application;
+using CleanArchitecture.Application.TodoLists.Commands;
 using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebUI.Controllers
@@ -31,14 +33,14 @@ namespace CleanArchitecture.WebUI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, UpdateTodoListCommand command)
+        public async Task<ActionResult> Update(int id, UpdateTodoList.Command command)
         {
             if (id != command.Id)
             {
                 return BadRequest();
             }
 
-            await Mediator.Send(command);
+            await HttpContext.RequestServices.GetService<UpdateTodoList.Handler>().Handle(command);
 
             return NoContent();
         }

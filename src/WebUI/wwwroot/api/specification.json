@@ -299,7 +299,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTodoListCommand"
+                "$ref": "#/components/schemas/Command"
               }
             }
           },
@@ -550,7 +550,7 @@
           }
         }
       },
-      "UpdateTodoListCommand": {
+      "Command": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

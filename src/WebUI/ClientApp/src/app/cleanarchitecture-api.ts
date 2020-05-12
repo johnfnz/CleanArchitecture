@@ -247,7 +247,7 @@ export interface ITodoListsClient {
     get(): Observable<TodosVm>;
     create(command: CreateTodoListCommand): Observable<number>;
     get2(id: number): Observable<FileResponse>;
-    update(id: number, command: UpdateTodoListCommand): Observable<FileResponse>;
+    update(id: number, command: Command): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
 }
 
@@ -413,7 +413,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf<FileResponse>(<any>null);
     }
 
-    update(id: number, command: UpdateTodoListCommand): Observable<FileResponse> {
+    update(id: number, command: Command): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -965,11 +965,11 @@ export interface ICreateTodoListCommand {
     title?: string | undefined;
 }
 
-export class UpdateTodoListCommand implements IUpdateTodoListCommand {
+export class Command implements ICommand {
     id?: number;
     title?: string | undefined;
 
-    constructor(data?: IUpdateTodoListCommand) {
+    constructor(data?: ICommand) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -985,9 +985,9 @@ export class UpdateTodoListCommand implements IUpdateTodoListCommand {
         }
     }
 
-    static fromJS(data: any): UpdateTodoListCommand {
+    static fromJS(data: any): Command {
         data = typeof data === 'object' ? data : {};
-        let result = new UpdateTodoListCommand();
+        let result = new Command();
         result.init(data);
         return result;
     }
@@ -1000,7 +1000,7 @@ export class UpdateTodoListCommand implements IUpdateTodoListCommand {
     }
 }
 
-export interface IUpdateTodoListCommand {
+export interface ICommand {
     id?: number;
     title?: string | undefined;
 }

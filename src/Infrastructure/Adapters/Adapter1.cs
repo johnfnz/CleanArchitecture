@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
-using static CleanArchitecture.Application.TodoLists.Commands.UpdateTodoListCommandValidator;
+using static CleanArchitecture.Application.UpdateTodoList;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace CleanArchitecture.Infrastructure.Adapters
 {
-    class Adapter1 : IPorts
+    class Adapter1 : Validator.IPorts // , Handler.IPorts
     {
         private readonly IApplicationDbContext _context;
 

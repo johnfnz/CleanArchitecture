@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.TodoLists.Commands;
+﻿using CleanArchitecture.Application;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Adapters;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
@@ -41,7 +41,8 @@ namespace CleanArchitecture.Infrastructure
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
-            services.AddTransient<UpdateTodoListCommandValidator.IPorts, Adapter1>();
+            services.AddScoped<UpdateTodoList.Validator.IPorts, Adapter1>();
+            services.AddScoped<UpdateTodoList.Handler>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

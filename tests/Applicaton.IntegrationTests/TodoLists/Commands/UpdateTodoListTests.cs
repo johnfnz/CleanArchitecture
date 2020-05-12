@@ -5,6 +5,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using static CleanArchitecture.Application.UpdateTodoList;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
 {
@@ -15,14 +16,14 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public void ShouldRequireValidTodoListId()
         {
-            var command = new UpdateTodoListCommand
+            var command = new Command
             {
                 Id = 99,
                 Title = "New Title"
             };
 
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+            FluentActions.Invoking(async () => await
+                GetService<Handler>().Handle(command)).Should().Throw<NotFoundException>();
         }
 
         [Test]
@@ -38,14 +39,14 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
                 Title = "Other List"
             });
 
-            var command = new UpdateTodoListCommand
+            var command = new Command
             {
                 Id = listId,
                 Title = "Other List"
             };
 
-            FluentActions.Invoking(() =>
-                SendAsync(command))
+            FluentActions.Invoking(async () => await
+                GetService<Handler>().Handle(command))
                     .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Title"))
                     .And.Errors["Title"].Should().Contain("The specified title already exists.");
         }
@@ -60,13 +61,13 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
                 Title = "New List"
             });
 
-            var command = new UpdateTodoListCommand
+            var command = new Command
             {
                 Id = listId,
                 Title = "Updated List Title"
             };
 
-            await SendAsync(command);
+            await GetService<Handler>().Handle(command);
 
             var list = await FindAsync<TodoList>(listId);
 

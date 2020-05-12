@@ -11,6 +11,6 @@ namespace CleanArchitecture.Application.Common.Interfaces
 
         DbSet<TodoItem> TodoItems { get; set; }
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
     }
 }

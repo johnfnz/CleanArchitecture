@@ -84,6 +84,12 @@ public class Testing
         return await mediator.Send(request);
     }
 
+    public static T GetService<T>()
+    {
+        var scope = _scopeFactory.CreateScope();
+            return scope.ServiceProvider.GetService<T>();
+    }
+
     public static async Task<string> RunAsDefaultUserAsync()
     {
         return await RunAsUserAsync("test@local", "Testing1234!");
