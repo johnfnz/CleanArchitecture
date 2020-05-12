@@ -1,9 +1,13 @@
+using AutoMapper;
 using CleanArchitecture.Application;
+using CleanArchitecture.Application.Common.Behaviours;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Filters;
 using CleanArchitecture.WebUI.Services;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
+using System.Reflection;
 
 namespace CleanArchitecture.WebUI
 {
@@ -126,5 +131,25 @@ namespace CleanArchitecture.WebUI
                 }
             });
         }
+
+
+    }
+
+    public static class Extensions
+    {
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
+            var assembly = typeof(ValidationBehavior<,>).Assembly;
+
+            services.AddAutoMapper(assembly);
+            services.AddValidatorsFromAssembly(assembly);
+            services.AddMediatR(assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+
+            return services;
+        }
+
     }
 }
