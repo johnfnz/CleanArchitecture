@@ -4,7 +4,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
+namespace CleanArchitecture.Application.TodoLists.Commands
 {
     public partial class CreateTodoListCommand : IRequest<int>
     {

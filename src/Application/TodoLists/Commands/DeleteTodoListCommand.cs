@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList
+namespace CleanArchitecture.Application.TodoLists.Commands
 {
     public class DeleteTodoListCommand : IRequest
     {
@@ -29,10 +29,8 @@ namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList
                 .Where(l => l.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
-            if (entity == null)
-            {
+            if(entity == null)
                 throw new NotFoundException(nameof(TodoList), request.Id);
-            }
 
             _context.TodoLists.Remove(entity);
 

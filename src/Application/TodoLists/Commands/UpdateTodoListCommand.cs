@@ -5,7 +5,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
+namespace CleanArchitecture.Application.TodoLists.Commands
 {
     public class UpdateTodoListCommand : IRequest
     {
@@ -27,10 +27,8 @@ namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
         {
             var entity = await _context.TodoLists.FindAsync(request.Id);
 
-            if (entity == null)
-            {
+            if(entity == null)
                 throw new NotFoundException(nameof(TodoList), request.Id);
-            }
 
             entity.Title = request.Title;
 

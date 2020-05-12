@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
+namespace CleanArchitecture.Application.TodoLists.Commands
 {
     public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
     {

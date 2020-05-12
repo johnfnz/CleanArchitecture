@@ -1,19 +1,21 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using FluentValidation;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
+namespace CleanArchitecture.Application.TodoLists.Commands
 {
     public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCommand>
     {
-        private readonly IApplicationDbContext _context;
-
-        public UpdateTodoListCommandValidator(IApplicationDbContext context)
+        public interface IPorts
         {
-            _context = context;
+            Task<bool> IsUniqueTitle(int modelId, string title);
+        }
+
+        private readonly IPorts _ports;
+
+        public UpdateTodoListCommandValidator(IPorts ports)
+        {
+            _ports = ports;
 
             RuleFor(v => v.Title)
                 .NotEmpty().WithMessage("Title is required.")
@@ -23,9 +25,7 @@ namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
 
         public async Task<bool> BeUniqueTitle(UpdateTodoListCommand model, string title, CancellationToken cancellationToken)
         {
-            return await _context.TodoLists
-                .Where(l => l.Id != model.Id)
-                .AllAsync(l => l.Title != title);
+            return await _ports.IsUniqueTitle(model.Id, title);
         }
     }
 }
