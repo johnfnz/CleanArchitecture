@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
-using CleanArchitecture.Application.TodoLists.Commands;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
@@ -27,7 +26,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var listId = await SendAsync(new CreateTodoListCommand
+            var listId = await SendAsync(new CreateTodoList.Command
             {
                 Title = "New List"
             });

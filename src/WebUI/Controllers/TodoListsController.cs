@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.WebUI.Controllers
 {
     [Authorize]
-    public class TodoListsController : ApiController
+    public class TodoListsController : ApiController 
     {
         [HttpGet]
         public async Task<ActionResult<TodosVm>> Get()
@@ -27,7 +27,7 @@ namespace CleanArchitecture.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateTodoListCommand command)
+        public async Task<ActionResult<int>> Create(CreateTodoList.Command command)
         {
             return await Mediator.Send(command);
         }

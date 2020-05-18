@@ -245,9 +245,9 @@ export class TodoItemsClient implements ITodoItemsClient {
 
 export interface ITodoListsClient {
     get(): Observable<TodosVm>;
-    create(command: CreateTodoListCommand): Observable<number>;
+    create(command: Command): Observable<number>;
     get2(id: number): Observable<FileResponse>;
-    update(id: number, command: Command): Observable<FileResponse>;
+    update(id: number, command: Command2): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
 }
 
@@ -312,7 +312,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf<TodosVm>(<any>null);
     }
 
-    create(command: CreateTodoListCommand): Observable<number> {
+    create(command: Command): Observable<number> {
         let url_ = this.baseUrl + "/api/TodoLists";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -413,7 +413,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf<FileResponse>(<any>null);
     }
 
-    update(id: number, command: Command): Observable<FileResponse> {
+    update(id: number, command: Command2): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -929,10 +929,10 @@ export interface ITodoItemDto {
     note?: string | undefined;
 }
 
-export class CreateTodoListCommand implements ICreateTodoListCommand {
+export class Command implements ICommand {
     title?: string | undefined;
 
-    constructor(data?: ICreateTodoListCommand) {
+    constructor(data?: ICommand) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -947,9 +947,9 @@ export class CreateTodoListCommand implements ICreateTodoListCommand {
         }
     }
 
-    static fromJS(data: any): CreateTodoListCommand {
+    static fromJS(data: any): Command {
         data = typeof data === 'object' ? data : {};
-        let result = new CreateTodoListCommand();
+        let result = new Command();
         result.init(data);
         return result;
     }
@@ -961,15 +961,15 @@ export class CreateTodoListCommand implements ICreateTodoListCommand {
     }
 }
 
-export interface ICreateTodoListCommand {
+export interface ICommand {
     title?: string | undefined;
 }
 
-export class Command implements ICommand {
+export class Command2 implements ICommand2 {
     id?: number;
     title?: string | undefined;
 
-    constructor(data?: ICommand) {
+    constructor(data?: ICommand2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -985,9 +985,9 @@ export class Command implements ICommand {
         }
     }
 
-    static fromJS(data: any): Command {
+    static fromJS(data: any): Command2 {
         data = typeof data === 'object' ? data : {};
-        let result = new Command();
+        let result = new Command2();
         result.init(data);
         return result;
     }
@@ -1000,7 +1000,7 @@ export class Command implements ICommand {
     }
 }
 
-export interface ICommand {
+export interface ICommand2 {
     id?: number;
     title?: string | undefined;
 }

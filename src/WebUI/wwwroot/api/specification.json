@@ -213,7 +213,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTodoListCommand"
+                "$ref": "#/components/schemas/Command"
               }
             }
           },
@@ -299,7 +299,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Command"
+                "$ref": "#/components/schemas/Command2"
               }
             }
           },
@@ -540,7 +540,7 @@
           }
         }
       },
-      "CreateTodoListCommand": {
+      "Command": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -550,7 +550,7 @@
           }
         }
       },
-      "Command": {
+      "Command2": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.TodoLists.Commands;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
@@ -29,12 +28,12 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public async Task ShouldRequireUniqueTitle()
         {
-            var listId = await SendAsync(new CreateTodoListCommand
+            var listId = await SendAsync(new CreateTodoList.Command
             {
                 Title = "New List"
             });
 
-            await SendAsync(new CreateTodoListCommand
+            await SendAsync(new CreateTodoList.Command
             {
                 Title = "Other List"
             });
@@ -56,7 +55,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var listId = await SendAsync(new CreateTodoListCommand
+            var listId = await SendAsync(new CreateTodoList.Command
             {
                 Title = "New List"
             });

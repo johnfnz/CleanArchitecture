@@ -5,7 +5,6 @@ using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using CleanArchitecture.Application.TodoLists.Commands;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
 {
@@ -25,7 +24,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         [Test]
         public async Task ShouldDeleteTodoItem()
         {
-            var listId = await SendAsync(new CreateTodoListCommand
+            var listId = await SendAsync(new CreateTodoList.Command
             {
                 Title = "New List"
             });

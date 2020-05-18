@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public async Task ShouldDeleteTodoList()
         {
-            var listId = await SendAsync(new CreateTodoListCommand
+            var listId = await SendAsync(new CreateTodoList.Command
             {
                 Title = "New List"
             });

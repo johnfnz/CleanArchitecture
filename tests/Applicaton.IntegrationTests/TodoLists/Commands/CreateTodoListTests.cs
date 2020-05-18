@@ -1,21 +1,21 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.TodoLists.Commands;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using static CleanArchitecture.Application.CreateTodoList;
+using static Testing;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
 {
-    using static Testing;
 
     public class CreateTodoListTests : TestBase
     {
         [Test]
         public void ShouldRequireMinimumFields()
         {
-            var command = new CreateTodoListCommand();
+            var command = new Command();
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
@@ -24,12 +24,12 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public async Task ShouldRequireUniqueTitle()
         {
-            await SendAsync(new CreateTodoListCommand
+            await SendAsync(new Command
             {
                 Title = "Shopping"
             });
 
-            var command = new CreateTodoListCommand
+            var command = new Command
             {
                 Title = "Shopping"
             };
@@ -43,7 +43,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var command = new CreateTodoListCommand
+            var command = new Command
             {
                 Title = "Tasks"
             };

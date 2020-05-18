@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Commands
 {
-    public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
+    public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoList.Command>
     {
         private readonly IApplicationDbContext _context;
 
