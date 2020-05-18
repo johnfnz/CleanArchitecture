@@ -1,6 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
 import { TodoItemsClient, CreateTodoItemCommand, TodoItemDto, UpdateTodoItemCommand,
-         TodosVm, TodoListsClient, TodoListDto, CreateTodoListCommand, Command,
+         TodosVm, TodoListsClient, TodoListDto, Command2, Command,
          UpdateTodoItemDetailCommand } from '../cleanarchitecture-api';
 import { faPlus, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -65,7 +65,7 @@ export class TodoComponent {
             items: [],
         });
 
-        this.listsClient.create(<CreateTodoListCommand>{ title: this.newListEditor.title }).subscribe(
+        this.listsClient.create(<Command2>{ title: this.newListEditor.title }).subscribe(
             result => {
                 list.id = result;
                 this.vm.lists.push(list);
