@@ -16,7 +16,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         [Test]
         public void ShouldRequireValidTodoItemId()
         {
-            var command = new UpdateTodoItemCommand
+            var command = new UpdateTodoItem.Command
             {
                 Id = 99,
                 Title = "New Title"
@@ -42,7 +42,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
                 Title = "New Item"
             });
 
-            var command = new UpdateTodoItemCommand
+            var command = new UpdateTodoItem.Command
             {
                 Id = itemId,
                 Title = "Updated Item Title"

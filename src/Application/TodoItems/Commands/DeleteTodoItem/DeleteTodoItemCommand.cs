@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem
 
         public async Task<Unit> Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.TodoItems.FindAsync(request.Id);
+            var entity = await _context.TodoItems.SingleOrDefault(t => t.Id == request.Id);
 
             if (entity == null)
             {

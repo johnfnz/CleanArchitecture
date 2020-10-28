@@ -16,7 +16,7 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ITodoItemsClient {
     create(command: CreateTodoItemCommand): Observable<number>;
-    update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse>;
+    update(id: number, command: Command): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
     updateItemDetails(id: number | undefined, command: UpdateTodoItemDetailCommand): Observable<FileResponse>;
 }
@@ -86,7 +86,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         return _observableOf<number>(<any>null);
     }
 
-    update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse> {
+    update(id: number, command: Command): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/TodoItems/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -245,9 +245,9 @@ export class TodoItemsClient implements ITodoItemsClient {
 
 export interface ITodoListsClient {
     get(): Observable<TodosVm>;
-    create(command: Command): Observable<number>;
+    create(command: Command2): Observable<number>;
     get2(id: number): Observable<FileResponse>;
-    update(id: number, command: Command2): Observable<FileResponse>;
+    update(id: number, command: Command3): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
 }
 
@@ -312,7 +312,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf<TodosVm>(<any>null);
     }
 
-    create(command: Command): Observable<number> {
+    create(command: Command2): Observable<number> {
         let url_ = this.baseUrl + "/api/TodoLists";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -413,7 +413,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf<FileResponse>(<any>null);
     }
 
-    update(id: number, command: Command2): Observable<FileResponse> {
+    update(id: number, command: Command3): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -626,12 +626,12 @@ export interface ICreateTodoItemCommand {
     title?: string | undefined;
 }
 
-export class UpdateTodoItemCommand implements IUpdateTodoItemCommand {
+export class Command implements ICommand {
     id?: number;
     title?: string | undefined;
     done?: boolean;
 
-    constructor(data?: IUpdateTodoItemCommand) {
+    constructor(data?: ICommand) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -648,9 +648,9 @@ export class UpdateTodoItemCommand implements IUpdateTodoItemCommand {
         }
     }
 
-    static fromJS(data: any): UpdateTodoItemCommand {
+    static fromJS(data: any): Command {
         data = typeof data === 'object' ? data : {};
-        let result = new UpdateTodoItemCommand();
+        let result = new Command();
         result.init(data);
         return result;
     }
@@ -664,7 +664,7 @@ export class UpdateTodoItemCommand implements IUpdateTodoItemCommand {
     }
 }
 
-export interface IUpdateTodoItemCommand {
+export interface ICommand {
     id?: number;
     title?: string | undefined;
     done?: boolean;
@@ -929,10 +929,10 @@ export interface ITodoItemDto {
     note?: string | undefined;
 }
 
-export class Command implements ICommand {
+export class Command2 implements ICommand2 {
     title?: string | undefined;
 
-    constructor(data?: ICommand) {
+    constructor(data?: ICommand2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -947,9 +947,9 @@ export class Command implements ICommand {
         }
     }
 
-    static fromJS(data: any): Command {
+    static fromJS(data: any): Command2 {
         data = typeof data === 'object' ? data : {};
-        let result = new Command();
+        let result = new Command2();
         result.init(data);
         return result;
     }
@@ -961,15 +961,15 @@ export class Command implements ICommand {
     }
 }
 
-export interface ICommand {
+export interface ICommand2 {
     title?: string | undefined;
 }
 
-export class Command2 implements ICommand2 {
+export class Command3 implements ICommand3 {
     id?: number;
     title?: string | undefined;
 
-    constructor(data?: ICommand2) {
+    constructor(data?: ICommand3) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -985,9 +985,9 @@ export class Command2 implements ICommand2 {
         }
     }
 
-    static fromJS(data: any): Command2 {
+    static fromJS(data: any): Command3 {
         data = typeof data === 'object' ? data : {};
-        let result = new Command2();
+        let result = new Command3();
         result.init(data);
         return result;
     }
@@ -1000,7 +1000,7 @@ export class Command2 implements ICommand2 {
     }
 }
 
-export interface ICommand2 {
+export interface ICommand3 {
     id?: number;
     title?: string | undefined;
 }

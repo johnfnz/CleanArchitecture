@@ -67,7 +67,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTodoItemCommand"
+                "$ref": "#/components/schemas/Command"
               }
             }
           },
@@ -213,7 +213,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Command"
+                "$ref": "#/components/schemas/Command2"
               }
             }
           },
@@ -299,7 +299,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Command2"
+                "$ref": "#/components/schemas/Command3"
               }
             }
           },
@@ -402,7 +402,7 @@
           }
         }
       },
-      "UpdateTodoItemCommand": {
+      "Command": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -540,7 +540,7 @@
           }
         }
       },
-      "Command": {
+      "Command2": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -550,7 +550,7 @@
           }
         }
       },
-      "Command2": {
+      "Command3": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

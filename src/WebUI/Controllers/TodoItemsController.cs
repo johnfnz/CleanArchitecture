@@ -18,7 +18,7 @@ namespace CleanArchitecture.WebUI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, UpdateTodoItemCommand command)
+        public async Task<ActionResult> Update(int id, UpdateTodoItem.Command command)
         {
             if (id != command.Id)
             {

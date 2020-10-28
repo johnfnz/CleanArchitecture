@@ -1,5 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
-import { TodoItemsClient, CreateTodoItemCommand, TodoItemDto, UpdateTodoItemCommand,
+import { TodoItemsClient, CreateTodoItemCommand, TodoItemDto, Command3,
          TodosVm, TodoListsClient, TodoListDto, Command2, Command,
          UpdateTodoItemDetailCommand } from '../cleanarchitecture-api';
 import { faPlus, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
@@ -189,7 +189,7 @@ export class TodoComponent {
                     error => console.error(error)
                 );
         } else {
-            this.itemsClient.update(item.id, UpdateTodoItemCommand.fromJS(item))
+            this.itemsClient.update(item.id, Command3.fromJS(item))
                 .subscribe(
                     () => console.log('Update succeeded.'),
                     error => console.error(error)

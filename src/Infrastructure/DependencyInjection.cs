@@ -41,7 +41,7 @@ namespace CleanArchitecture.Infrastructure
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
-            services.AddScoped<UpdateTodoList.Validator.IPorts, Adapter1>();
+            services.AddScoped<UpdateTodoList.IPorts, UpdateTodoListAdapter>();
             services.AddScoped<UpdateTodoList.Handler>();
 
             services.AddAuthentication()
